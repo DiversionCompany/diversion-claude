@@ -1,0 +1,9 @@
+{
+  "name": "diversion",
+  "version": "0.5.0",
+  "description": "Diversion plugin for Claude Code that tracks the trajectory of a session - capturing chat checkpoints before every mutating tool use, stamping them onto dv commits, and exposing query capabilities over the recorded trajectory. Hook logic ships inside the dv binary; no Python required on the host.",
+  "author": {
+    "name": "Diversion",
+    "email": "support@diversion.dev"
+  }
+}

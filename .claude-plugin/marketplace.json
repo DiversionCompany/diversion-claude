@@ -1,0 +1,15 @@
+{
+  "name": "diversion",
+  "owner": {
+    "name": "Diversion",
+    "email": "support@diversion.dev"
+  },
+  "plugins": [
+    {
+      "name": "diversion",
+      "source": "./plugins/diversion",
+      "description": "Tracks Claude Code session trajectory and links dv commits to checkpoints via the dv agent-session CLI.",
+      "version": "0.5.0"
+    }
+  ]
+}
