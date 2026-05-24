@@ -1,6 +1,6 @@
 # Diversion Claude Code Plugin
 
-Diversion plugin for Claude Code. It records the **trajectory** of a coding session -- the ordered chain of chat turns, tool inputs, and commits -- and ties it back to the Diversion commits the session produced.
+Diversion plugin for Claude Code. It captures your Claude Code conversations and links them to the Diversion commits they produced -- so you can later query why any change was made, what was discussed, and how decisions were reached.
 
 ## What you get
 
@@ -16,7 +16,7 @@ Failure mode is fail-open: if anything goes wrong (no `dv` on PATH, not in a Div
 
 ### Prerequisites
 
-- `dv` on your `PATH`, version `0.9.910` or later. Confirm with `dv --version`.
+- Diversion installed (provides `dv` on your `PATH`). If not installed, follow the install guide at https://app.diversion.dev/welcome.
 - Launch `claude` from inside a `.diversion/` workspace (or a subdir of one).
 
 ### Install via the Claude Code marketplace
