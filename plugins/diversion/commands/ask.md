@@ -14,6 +14,11 @@ Open or continue an investigation handled by the `ask-analyst` sub-agent.
 
 3. Show the analyst's response to the user verbatim.
 
-4. **For any follow-up question the user asks about the same subject, route it through another `Task` call to `ask-analyst`.** Do NOT inline raw JSONL into this session's context. The analyst's local cache makes follow-ups cheap (no re-fetch).
+4. **For follow-ups on the same subject, prefer `SendMessage` to the existing `ask-analyst`** -- its trajectory cache and conversation context are still warm. Rules:
+
+   - Address the analyst by **agent id**, not by `name`. Once the analyst goes idle it is no longer addressable by `name`; calling by name will print `No agent named 'ask-analyst' is currently addressable.`
+   - When `message` is a plain string, you MUST also pass a one-line `summary` field. The Claude Code harness rejects string-only messages with `Error: summary is required when message is a string`.
+   - If the prior analyst is no longer resumable for any reason, fall back to a fresh `Task` call with `subagent_type: ask-analyst`.
+   - Never inline raw JSONL into this session's context. The analyst's local cache makes follow-ups cheap (no re-fetch).
 
 The whole point of this command is the isolation: the raw Claude Code transcripts only live inside the sub-agent's context. The main session only ever sees the summarized answers.
