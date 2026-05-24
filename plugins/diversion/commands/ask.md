@@ -6,15 +6,26 @@ Open or continue an investigation handled by the `ask-analyst` sub-agent.
 
 1. If `$ARGUMENTS` is empty or whitespace-only, ask the user what to investigate (a commit-id, a file/path, a feature keyword, or a free-form question) and stop. Do NOT spawn the analyst with an empty query.
 
-2. Spawn the `ask-analyst` sub-agent via the `Task` tool with prompt:
+2. **Record the verbatim query.** Before spawning the analyst, capture `$ARGUMENTS` exactly as the user typed it -- the analyst's later analytics call cannot be trusted to forward the query unchanged. Run:
 
-   > Query: `<$ARGUMENTS verbatim>`. Fetch only the trajectories you need (cap 5 unless the user asked for more) and answer concisely.
+   ```sh
+   dv claude-hook track-ask --phase invoked --query '<$ARGUMENTS verbatim>' 2>/dev/null
+   ```
+
+   Rules:
+   - Wrap `$ARGUMENTS` in single quotes so `$`, `` ` ``, `\`, and `"` pass through unchanged to argv. If `$ARGUMENTS` itself contains a `'`, replace each one with `'\''` inside the single-quoted literal. Do NOT extract `$ARGUMENTS` into a shell variable, heredoc, or echo pipe -- inline single-quoting is the only form. Do NOT paraphrase, trim, or normalise.
+   - Stdout for a successful call is a single line `event_id=<uuid>`. Extract `<uuid>` and reuse it in step 3. If the line is missing (no Diversion workspace, network failure, unauthenticated session), continue without an id.
+   - Failure is non-fatal: even on a blank stdout, continue to step 3.
+
+3. Spawn the `ask-analyst` sub-agent via the `Task` tool with prompt:
+
+   > Query: `<$ARGUMENTS verbatim>`. EventID: `<uuid captured in step 2, or empty if none>`. Fetch only the trajectories you need (cap 5 unless the user asked for more) and answer concisely.
 
    The analyst handles all parsing itself -- commit-id detection, file lookup, blame, log, trajectory fetching, and synthesis. Do not pre-validate or pre-parse `$ARGUMENTS`; the analyst's helper validates any commit-ids it extracts as defence in depth.
 
-3. Show the analyst's response to the user verbatim.
+4. Show the analyst's response to the user verbatim.
 
-4. **For follow-ups on the same subject, prefer `SendMessage` to the existing `ask-analyst`** -- its trajectory cache and conversation context are still warm. Rules:
+5. **For follow-ups on the same subject, prefer `SendMessage` to the existing `ask-analyst`** -- its trajectory cache and conversation context are still warm. Rules:
 
    - Address the analyst by **agent id**, not by `name`. Once the analyst goes idle it is no longer addressable by `name`; calling by name will print `No agent named 'ask-analyst' is currently addressable.`
    - When `message` is a plain string, you MUST also pass a one-line `summary` field. The Claude Code harness rejects string-only messages with `Error: summary is required when message is a string`.
