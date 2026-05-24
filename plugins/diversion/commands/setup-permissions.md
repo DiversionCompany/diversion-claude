@@ -19,7 +19,7 @@ Add the Diversion plugin's required `Bash(dv ...)` permission patterns to the us
 
    If `permissions` or `permissions.allow` is missing, create the minimum nested structure to hold the array. Preserve every other key in the file untouched.
 
-4. Use the `Write` tool to save the modified JSON back to the same path with 2-space indentation and a trailing newline. Do not reformat or strip unrelated keys.
+4. If no patterns needed to be added (every required entry was already present), skip the write entirely and proceed to step 5. Otherwise use the `Write` tool to save the modified JSON back to the same path with 2-space indentation and a trailing newline. Preserve every key and value -- whitespace and indentation may change as a side effect of re-serializing, but no unrelated keys or values are dropped or modified.
 
 5. Print a short summary in this exact shape:
 
