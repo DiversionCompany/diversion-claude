@@ -77,3 +77,11 @@ Examples:
 ```
 
 Follow-up questions on the same subject reuse the analyst's local cache, so they're cheap -- just keep asking.
+
+## Support
+
+For questions or issues with the plugin:
+
+- **Chat with us** in the [Diversion app](https://app.diversion.dev) (desktop or web) -- look for the chat widget
+- **Email** [support@diversion.dev](mailto:support@diversion.dev?subject=Claude%20Code%20Plugin%20Support)
+- **Bug reports** -- open an issue on [GitHub](https://github.com/DiversionCompany/diversion-claude/issues)
