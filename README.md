@@ -25,10 +25,9 @@ Run inside Claude Code:
 
 ```
 /plugin marketplace add DiversionCompany/diversion-claude
+/reload-plugins
 /plugin install diversion@diversion
 ```
-
-The marketplace clones the repo with your existing GitHub credentials (SSH key, `gh auth`, or `git credential` helper), so this works for the private `DiversionCompany/diversion-claude` repo as long as you have clone access.
 
 After install, quit Claude Code (`/quit` or Ctrl-D) and relaunch from the repo you want to use it in:
 
