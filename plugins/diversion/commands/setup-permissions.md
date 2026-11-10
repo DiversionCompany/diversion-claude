@@ -16,6 +16,14 @@ Add the Diversion plugin's required `Bash(dv ...)` permission patterns to the us
    - `Bash(dv diff:*)`
    - `Bash(dv status:*)`
    - `Bash(dv branch:*)`
+   - `Bash(git blame:*)`
+   - `Bash(git log:*)`
+   - `Bash(git show:*)`
+   - `Bash(git diff:*)`
+   - `Bash(git rev-parse:*)`
+   - `Bash(git status:*)`
+
+   The `dv ...` patterns serve the native-Diversion analyst; the read-only `git ...` patterns serve the git-workspace analyst (`ask-analyst-git`).
 
    If `permissions` or `permissions.allow` is missing, create the minimum nested structure to hold the array. Preserve every other key in the file untouched.
 
