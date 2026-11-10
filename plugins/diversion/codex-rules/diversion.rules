@@ -1,0 +1,17 @@
+# Lets Codex run the read-only Diversion commands that $diversion:ask uses without
+# asking each time. $diversion:setup-permissions copies this file to ~/.codex/rules/.
+prefix_rule(
+    pattern = [["dv", "dvt"], "claude-hook", ["fetch-trajectory", "track-ask"]],
+    decision = "allow",
+    match = [
+        "dv claude-hook fetch-trajectory -- dv.commit.1",
+        "dvt claude-hook track-ask --phase invoked --query why",
+    ],
+    not_match = ["dv claude-hook pre-tool-use"],
+)
+prefix_rule(
+    pattern = [["dv", "dvt"], ["annotate", "blame", "log", "show", "diff", "status"]],
+    decision = "allow",
+    match = ["dv log -n 5", "dvt annotate src/main.go -L 1,5"],
+    not_match = ["dv commit -m x"],
+)

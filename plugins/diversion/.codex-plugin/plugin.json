@@ -1,0 +1,12 @@
+{
+  "name": "diversion",
+  "version": "0.9.1",
+  "description": "Diversion plugin for Codex. Links your Codex conversations to the commits they produced -- `dv commit` in Diversion repos and `git commit` in `.git` repos continuously synced to Diversion -- so you can later ask why a change was made. Hook logic ships inside the dv binary.",
+  "author": {
+    "name": "Diversion",
+    "email": "support@diversion.dev"
+  },
+  "homepage": "https://www.diversion.dev/",
+  "skills": "./codex-skills/",
+  "hooks": "./hooks/codex-hooks.json"
+}
