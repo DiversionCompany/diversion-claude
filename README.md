@@ -101,15 +101,15 @@ codex plugin add diversion@diversion
 
 Codex does not run plugin hooks until you trust them. Start `codex` in your repo, run `/hooks`, and trust the Diversion hooks. After a plugin update, Codex can ask you to trust them again.
 
-### One-time: stop the `dv` approval prompts
+### One-time: let `dv` run outside the sandbox
 
-The Codex sandbox blocks the network, so Codex asks before each `dv` command that `$diversion:ask` runs. To allow those read-only commands, run this once and restart Codex:
+`dv` talks to the local Diversion agent over the network, and the Codex sandbox blocks the network. So in the sandbox every `dv` command fails, or Codex asks before it runs. To fix this, run this once and restart Codex:
 
 ```
 $diversion:setup-permissions
 ```
 
-It copies the plugin's rules file to `~/.codex/rules/diversion.rules`. If `DIVERSION_DV_BIN` is set, the installed rules also allow that command name. Commands that change a repo, such as `dv commit`, still ask.
+It copies the plugin's rules file to `~/.codex/rules/diversion.rules`. The rules let Codex run `dv` commands outside the sandbox without asking, including commands that change a repo, such as `dv commit` and `dv merge`. Codex still asks before commands that delete data or call the raw API: `dv repo -d`, `dv workspace delete`, `dv obliterate`, `dv prune`, and `dv api`. Other commands still run in the sandbox, without network access.
 
 ### Updating
 
@@ -128,7 +128,7 @@ $diversion:ask why did we change the retry logic in core/src/sync/engine.py
 
 ### Notes
 
-- `dv` needs the Diversion agent and the network. When the Codex sandbox blocks a `dv` command, approve it.
+- If a `dv` command fails with `timeout waiting for agent to become ready`, the sandbox blocked it. Run `$diversion:setup-permissions` and restart Codex, or approve the command.
 - In a Diversion workspace that has no `.git` directory, trust the folder when Codex asks.
 
 ## Your recorded sessions
@@ -149,7 +149,7 @@ In Codex, run `codex plugin remove diversion@diversion`, then restart Codex.
 
 ### Delete recorded sessions
 
-Open **Settings > AI** in the [Diversion web app](https://app.diversion.dev/settings/ai) and use **Delete Claude Code session transcripts**:
+Open **Settings > AI** in the [Diversion web app](https://app.diversion.dev/settings/ai) and use **Delete Claude Code and Codex session transcripts**:
 
 - Choose **All repositories**, or pick up to 10 specific repositories.
 - The deletion removes the transcripts. Your commits stay, but no longer show a transcript. Your files do not change.

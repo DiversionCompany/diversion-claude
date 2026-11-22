@@ -1,17 +1,29 @@
-# Lets Codex run the read-only Diversion commands that $diversion:ask uses without
-# asking each time. $diversion:setup-permissions copies this file to ~/.codex/rules/.
+# Lets Codex run Diversion commands outside its sandbox without asking. dv talks to
+# the local Diversion agent over the network, and the sandbox blocks the network.
+# Codex applies the strictest matching rule, so the prompt rules below still ask
+# before commands that delete data or call the raw API.
+# $diversion:setup-permissions copies this file to ~/.codex/rules/.
 prefix_rule(
-    pattern = ["dv", "claude-hook", ["fetch-trajectory", "track-ask"]],
+    pattern = ["dv"],
     decision = "allow",
-    match = [
-        "dv claude-hook fetch-trajectory -- dv.commit.1",
-        "dv claude-hook track-ask --phase invoked --query why",
-    ],
-    not_match = ["dv claude-hook pre-tool-use"],
+    match = ["dv status", "dv branch -c feature", "dv commit -m x"],
+    not_match = ["git status"],
 )
 prefix_rule(
-    pattern = ["dv", ["annotate", "blame", "log", "show", "diff", "status"]],
-    decision = "allow",
-    match = ["dv log -n 5", "dv annotate src/main.go -L 1,5"],
-    not_match = ["dv commit -m x"],
+    pattern = ["dv", ["obliterate", "prune", "api"]],
+    decision = "prompt",
+    match = ["dv obliterate preview /a.psd", "dv prune add /a.psd --keep 1", "dv api -X DELETE /repos/x"],
+    not_match = ["dv status"],
+)
+prefix_rule(
+    pattern = ["dv", "repo", "-d"],
+    decision = "prompt",
+    match = ["dv repo -d dv.repo.1 -f"],
+    not_match = ["dv repo"],
+)
+prefix_rule(
+    pattern = ["dv", "workspace", "delete"],
+    decision = "prompt",
+    match = ["dv workspace delete --all -f"],
+    not_match = ["dv workspace pause"],
 )
