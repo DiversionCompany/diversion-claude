@@ -1,4 +1,4 @@
-# Diversion Plugin for Claude Code and Codex
+# Diversion AI Plugins
 
 Diversion plugin for Claude Code and Codex. It captures your Claude Code and Codex conversations and links them to the commits they produced -- so you can later query why any change was made, what was discussed, and how decisions were reached. Works in two flavors of repository:
 
@@ -28,7 +28,7 @@ Failure mode is fail-open: if anything goes wrong (no `dv` on PATH, repo not syn
 Run inside Claude Code:
 
 ```
-/plugin marketplace add DiversionCompany/diversion-claude
+/plugin marketplace add DiversionCompany/diversion-ai-plugins
 /reload-plugins
 /plugin install diversion@diversion
 ```
@@ -93,7 +93,7 @@ The same plugin works in the Codex CLI. It records your Codex conversations and 
 The hooks need a recent `dv`, so update Diversion to the latest version first. Then run:
 
 ```
-codex plugin marketplace add DiversionCompany/diversion-claude
+codex plugin marketplace add DiversionCompany/diversion-ai-plugins
 codex plugin add diversion@diversion
 ```
 
@@ -164,4 +164,4 @@ For questions or issues with the plugin:
 
 - **Chat with us** in the [Diversion app](https://app.diversion.dev) (desktop or web) -- look for the chat widget
 - **Email** [support@diversion.dev](mailto:support@diversion.dev?subject=Claude%20Code%20Plugin%20Support)
-- **Bug reports** -- open an issue on [GitHub](https://github.com/DiversionCompany/diversion-claude/issues)
+- **Bug reports** -- open an issue on [GitHub](https://github.com/DiversionCompany/diversion-ai-plugins/issues)
