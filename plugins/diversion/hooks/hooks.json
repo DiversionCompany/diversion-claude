@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dv claude-hook session-start",
+            "command": "if command -v \"dv\" >/dev/null 2>&1; then \"dv\" claude-hook session-start; fi",
             "timeout": 5
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dv claude-hook pre-tool-use",
+            "command": "if command -v \"dv\" >/dev/null 2>&1; then \"dv\" claude-hook pre-tool-use; fi",
             "timeout": 20
           }
         ]
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dv claude-hook post-tool-use",
+            "command": "if command -v \"dv\" >/dev/null 2>&1; then \"dv\" claude-hook post-tool-use; fi",
             "timeout": 5
           }
         ]
@@ -41,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dv claude-hook session-end",
+            "command": "if command -v \"dv\" >/dev/null 2>&1; then \"dv\" claude-hook session-end; fi",
             "timeout": 5
           }
         ]
