@@ -1,6 +1,6 @@
 {
   "name": "diversion",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Diversion plugin for Claude Code. Captures your Claude Code conversations and links them to the commits they produced -- both `dv commit` in native Diversion repos and `git commit` in `.git` repos continuously synced to Diversion -- so you can later query why any change was made, what was discussed, and how decisions were reached. Hook logic ships inside the dv binary; no Python required on the host.",
   "author": {
     "name": "Diversion",
